@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detector</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 2rem; background: #f7f9fc; color: #333; }
+      .container { max-width: 720px; margin: 0 auto; background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+      h1 { margin-top: 0; }
+      textarea { width: 100%; min-height: 160px; padding: 0.75rem; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem; }
+      select, button { padding: 0.75rem 1rem; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem; }
+      button { background: #007bff; color: #fff; border: none; cursor: pointer; }
+      button:hover { background: #0056c8; }
+      .result { margin-top: 1.5rem; padding: 1rem; background: #f0f8ff; border-left: 4px solid #007bff; }
+      .result strong { display: inline-block; margin-right: 0.5rem; }
+      .tokens { margin-top: 0.75rem; font-family: monospace; white-space: pre-wrap; word-break: break-word; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Smart Fake News Detector</h1>
+      <p>Enter news article text below, choose a processing mode, and submit to see whether the article is classified as real or fake news.</p>
+
+      <form method="post">
+        <label for="mode">Text pipeline mode</label><br>
+        <select id="mode" name="mode">
+          {% for value, label in modes.items() %}
+            <option value="{{ value }}" {% if value == selected_mode %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+
+        <div style="margin-top: 1rem;">
+          <label for="news_text">News article content</label><br>
+          <textarea id="news_text" name="news_text" placeholder="Paste news article here...">{{ news_text }}</textarea>
+        </div>
+
+        <div style="margin-top: 1rem;">
+          <button type="submit">Classify News</button>
+        </div>
+      </form>
+
+      {% if result %}
+      <div class="result">
+        <p><strong>Prediction:</strong> {{ result.label }}</p>
+        <p><strong>Pipeline mode:</strong> {{ result.mode }}</p>
+        <p><strong>Processed tokens:</strong></p>
+        <div class="tokens">{{ result.tokens | join(' ') }}</div>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>

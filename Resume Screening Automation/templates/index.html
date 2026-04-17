@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Screening Automation</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 2rem; background: #f7f9fc; color: #333; }
+      .container { max-width: 800px; margin: 0 auto; background: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+      h1 { margin-top: 0; }
+      textarea { width: 100%; min-height: 120px; padding: 0.75rem; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem; margin-bottom: 1rem; }
+      button { padding: 0.75rem 1rem; border-radius: 6px; border: none; background: #007bff; color: #fff; cursor: pointer; font-size: 1rem; }
+      button:hover { background: #0056c8; }
+      .result { margin-top: 2rem; padding: 1rem; background: #f0f8ff; border-left: 4px solid #007bff; border-radius: 6px; }
+      .result strong { display: inline-block; margin-right: 0.5rem; }
+      .keywords { margin-top: 0.75rem; font-family: monospace; white-space: pre-wrap; word-break: break-word; background: #f9f9f9; padding: 0.5rem; border-radius: 4px; }
+      .match-level { font-weight: bold; color: #28a745; }
+      .match-level.medium { color: #ffc107; }
+      .match-level.low { color: #dc3545; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Resume Screening Automation</h1>
+      <p>Enter the job description and resume text below to check the match based on extracted keywords.</p>
+
+      <form method="post">
+        <label for="job_text">Job Description</label><br>
+        <textarea id="job_text" name="job_text" placeholder="Enter the job description...">{{ job_text }}</textarea>
+
+        <label for="resume_text">Resume Text</label><br>
+        <textarea id="resume_text" name="resume_text" placeholder="Enter the resume content...">{{ resume_text }}</textarea>
+
+        <button type="submit">Screen Resume</button>
+      </form>
+
+      {% if result %}
+      <div class="result">
+        <p><strong>Similarity:</strong> {{ "%.4f"|format(result.similarity) }}</p>
+        <p><strong>Score:</strong> {{ "%.1f"|format(result.score) }}%</p>
+        <p><strong>Match Level:</strong> <span class="match-level{% if result.match_level == 'Medium Match' %} medium{% elif result.match_level == 'Low Match' %} low{% endif %}">{{ result.match_level }}</span></p>
+        <p><strong>Job Keywords:</strong></p>
+        <div class="keywords">{{ result.job_keywords | join(' ') }}</div>
+        <p><strong>Resume Keywords:</strong></p>
+        <div class="keywords">{{ result.resume_keywords | join(' ') }}</div>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>

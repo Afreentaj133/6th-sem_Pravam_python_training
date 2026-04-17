@@ -1,0 +1,49 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Sample data
+x = np.arange(1, 6)
+y = [10, 20, 15, 25, 30]
+
+# Create subplots (2 rows, 3 columns)
+plt.figure(figsize=(12, 8))
+
+# 1️⃣ Line Plot
+plt.subplot(2, 3, 1)
+plt.plot(x, y)
+plt.title("Line Plot")
+
+# 2️⃣ Bar Graph
+plt.subplot(2, 3, 2)
+plt.bar(x, y)
+plt.title("Bar Graph")
+
+# 3️⃣ Scatter Plot
+plt.subplot(2, 3, 3)
+plt.scatter(x, y)
+plt.title("Scatter Plot")
+
+# 4️⃣ Histogram
+plt.subplot(2, 3, 4)
+data = np.random.randn(100)
+plt.hist(data)
+plt.title("Histogram")
+
+# 5️⃣ Pie Chart
+plt.subplot(2, 3, 5)
+labels = ['A', 'B', 'C', 'D']
+sizes = [25, 35, 20, 20]
+plt.pie(sizes, labels=labels, autopct='%1.1f%%')
+plt.title("Pie Chart")
+
+# 6️⃣ Box Plot
+plt.subplot(2, 3, 6)
+data2 = [np.random.randn(100)]
+plt.boxplot(data2)
+plt.title("Box Plot")
+
+# Adjust layout
+plt.tight_layout()
+
+# Show all graphs
+plt.show()

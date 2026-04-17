@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Add Student | Flask CRUD{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-7">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h4 class="card-title mb-4">Add Student</h4>
+        <form method="post" action="{{ url_for('add_student') }}">
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" class="form-control" placeholder="Student name" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" name="email" class="form-control" placeholder="Student email" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Course</label>
+            <input type="text" name="course" class="form-control" placeholder="Course name" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Phone</label>
+            <input type="text" name="phone" class="form-control" placeholder="Phone number" required>
+          </div>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" name="is_active" id="is_active" checked>
+            <label class="form-check-label" for="is_active">Active student</label>
+          </div>
+          <button type="submit" class="btn btn-success">Save Student</button>
+          <a href="{{ url_for('students') }}" class="btn btn-secondary ms-2">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
